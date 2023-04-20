@@ -1,5 +1,5 @@
 apt update
-apt install zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump sipcalc apache2 -y
+apt install fping zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump sipcalc apache2 -y
 
 
 
@@ -8,19 +8,13 @@ set -e
 USER=${USER:-$(id -u -n)}
 HOME="${HOME:-$(getent passwd $USER 2>/dev/null | cut -d: -f6)}"
 HOME="${HOME:-$(eval echo ~$USER)}"
-
-
 custom_zsh=${ZSH:+yes}
-
 zdot="${ZDOTDIR:-$HOME}"
-
 [ "$ZDOTDIR" = "$HOME" ] || ZSH="${ZSH:-${ZDOTDIR:+$ZDOTDIR/ohmyzsh}}"
 ZSH="${ZSH:-$HOME/.oh-my-zsh}"
-
 REPO=${REPO:-ohmyzsh/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
-
 CHSH=${CHSH:-yes}
 RUNZSH=${RUNZSH:-yes}
 KEEP_ZSHRC=${KEEP_ZSHRC:-no}
