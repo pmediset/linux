@@ -1,5 +1,5 @@
 apt update
-apt install zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump apache2 -y
+apt install zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump sipcalc apache2 -y
 
 
 
