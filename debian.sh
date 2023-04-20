@@ -393,12 +393,3 @@ EOF
 main "$@"
 
 chsh -s /usr/bin/zsh
-echo "
-export PAGER=most
-export PROMPT='%(!.%{%F{yellow}%}.)$USER@%{$fg[white]%}%M ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
-neofetch
-" >> .zshrc
-source .zshrc
-
-
-
