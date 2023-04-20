@@ -1,6 +1,8 @@
 apt update
-apt install zsh wireguard-tools telnet frr most neofetch -y
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+apt install zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump apache2 -y
+
+
+
 set -e
 
 USER=${USER:-$(id -u -n)}
@@ -391,14 +393,7 @@ EOF
 main "$@"
 
 
-
-
-
-
-
-
-
-
+chsh -s /usr/bin/zsh
 neofetch
 export PAGER=most
 export PROMPT='%(!.%{%F{yellow}%}.)$USER@%{$fg[white]%}%M ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
