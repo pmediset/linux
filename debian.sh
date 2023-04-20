@@ -392,6 +392,4 @@ EOF
 
 main "$@"
 
-chsh -s /usr/bin/zsh
-cat zshrc >>~/.zshrc
 
