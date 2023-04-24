@@ -10,4 +10,5 @@ gitpush () {
 	git commit -m "$*"
 	git push
 }
+export PROMPT='%(!.%{%F{yellow}%}.)$USER@%{$fg[white]%}%M ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
 
