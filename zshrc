@@ -3,5 +3,11 @@ alias ip_sort='sort -n -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4'
 alias ip_filter="grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'"
 alias ip_range_filter="grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\-[0-9]\{1,3\}'"
 alias ip_sub_filter="grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\/..'"
+alias gp=gitpush
 neofetch
+gitpush () {
+	git add .
+	git commit -m "$*"
+	git push
+}
 

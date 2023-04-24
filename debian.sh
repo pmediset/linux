@@ -1,5 +1,5 @@
 apt update
-apt install fping zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump sipcalc apache2 -y
+apt install strongswan fping zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump sipcalc apache2 -y
 
 
 
