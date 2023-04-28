@@ -2,6 +2,8 @@ yum update -y
 yum install epel-release -y
 yum upgrade -y
 yum install iftop nload iperf3 tree keepalived strongswan fping zsh wireguard-tools telnet frr most neofetch traceroute mtr nmap tcpdump httpd -y
+dnf install util-linux-user -y
+chsh -s /bin/zsh
 
 set -e
 
