@@ -14,4 +14,5 @@ export PROMPT='%(!.%{%F{yellow}%}.)$USER@%{$fg[white]%}%M ${ret_status} %{$fg[cy
 cheat () {
 	curl cheat.sh/$1
 }
+export PAGER=most
 
