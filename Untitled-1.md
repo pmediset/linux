@@ -1,15 +1,4 @@
 
-│ 45760242 │ in-router1 │ ap-west      │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760244 │ in-router2 │ ap-west      │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760247 │ in-app-vm1 │ ap-west      │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760250 │ in-app-vm2 │ ap-west      │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760253 │ in-app-vm3 │ ap-west      │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760258 │ us-router1 │ us-southeast │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760259 │ us-router2 │ us-southeast │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760260 │ us-app-vm1 │ us-southeast │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760263 │ us-app-vm2 │ us-southeast │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-│ 45760264 │ us-app-vm3 │ us-southeast │ g6-standard-1 │ linode/ubuntu22.10 │ running │ 
-
 in-router1 ->CLB1 (4600)
 in-router2 ->CLB2 (1500)
 us-router1 ->CLB1 (4600)
