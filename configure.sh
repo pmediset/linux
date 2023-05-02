@@ -1,25 +1,22 @@
 #!/bin/bash
 
-declare IN_RTR1_PUBLIC="139.162.61.12"
-declare IN_RTR2_PUBLIC="139.162.22.234"
-declare IN_APP1_PUBLIC="139.162.14.19"
-declare IN_APP2_PUBLIC="139.162.16.122"
-declare IN_APP3_PUBLIC="139.162.28.118"
-declare US_RTR1_PUBLIC="172.104.24.176"
-declare US_RTR2_PUBLIC="172.104.24.233"
-declare US_APP1_PUBLIC="172.104.24.182"
-declare US_APP2_PUBLIC="45.79.181.23"
-declare US_APP3_PUBLIC="45.79.181.34"
-
+declare IN_RTR1_PUBLIC="172.104.206.142"
+declare IN_RTR2_PUBLIC="172.104.206.156"
+declare IN_APP1_PUBLIC="172.104.206.164"
+declare IN_APP2_PUBLIC="172.104.206.214"
+declare IN_APP3_PUBLIC="172.104.206.216"
+declare US_RTR1_PUBLIC="170.187.153.63"
+declare US_RTR2_PUBLIC="170.187.153.224"
+declare US_APP1_PUBLIC="170.187.153.219"
+declare US_APP2_PUBLIC="170.187.153.248"
+declare US_APP3_PUBLIC="139.144.16.32"
 
 declare ONPREM_FW1="72.247.47.16" # fw-clientlab4600.145bw.neteng.akamai.com IND .1 US .9
 declare ONPREM_FW2="72.247.47.21" # fw-clientlab1500.145bw.neteng.akamai.com IND .5 US .13
 ETH0_IP=$(ip -br add show dev eth0 | awk {'print $3'} | sed 's/\/.*//g')
 ETH1_IP=$(ip -br add show dev eth1 | awk {'print $3'} | sed 's/\/.*//g')
 
-
 case $ETH0_IP in
-
 $IN_RTR1_PUBLIC)
 hostnamectl set-hostname in-router1
 apt-get update
@@ -115,9 +112,8 @@ exit
 !
 END
 systemctl restart frr
-
-
 ;; 
+
 $IN_RTR2_PUBLIC)
 hostnamectl set-hostname in-router2
 apt-get update
@@ -203,8 +199,8 @@ exit
 !
 END
 systemctl restart frr
-
 ;;
+
 $US_RTR1_PUBLIC)
 hostnamectl set-hostname us-router1
 apt-get update
@@ -260,8 +256,6 @@ conn to_onprem
   auto=start
 END
 
-
-
 ip link add name vti1 type vti key 100 local $ETH0_IP remote $ONPREM_FW1
 ip link set vti1 up
 ip addr add 100.100.100.9/30 dev vti1
@@ -303,8 +297,8 @@ exit
 !
 END
 systemctl restart frr
+;;
 
-;; 
 $US_RTR2_PUBLIC)
 hostnamectl set-hostname us-router2
 apt-get update
@@ -390,10 +384,7 @@ exit
 !
 END
 systemctl restart frr
-
-
 ;; 
-
 
 $IN_APP1_PUBLIC)
 hostnamectl set-hostname in-app-vm1
@@ -456,6 +447,3 @@ ip route del default
 ip route add default via $(ip -br addr show dev eth1 | grep -o "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}").1
 ;; 
 esac
-
-
-
