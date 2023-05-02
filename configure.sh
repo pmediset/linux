@@ -57,7 +57,6 @@ charon {
 }
 END
 
-#aes-256-cbc
 cat >/etc/ipsec.conf<<END
 conn to_onprem
   type=tunnel
@@ -75,8 +74,6 @@ conn to_onprem
   auto=start
 END
 
-
-
 ip link add name vti1 type vti key 100 local $ETH0_IP remote $ONPREM_FW1
 ip link set vti1 up
 ip addr add 100.100.100.1/30 dev vti1
@@ -85,6 +82,39 @@ sysctl -w net.ipv4.ip_forward=1
 ipsec reload; ipsec restart
 iptables -A FORWARD -i eth1 -j ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+sed -i 's/bgpd=no/bgpd=yes/g' /etc/frr/daemons
+cat >/etc/frr/frr.conf<<END
+frr version 8.1
+frr defaults traditional
+hostname in-router1
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+router bgp 65550
+ bgp router-id 1.1.1.1
+ no bgp ebgp-requires-policy
+ neighbor 100.100.100.2 remote-as 65535
+ neighbor 100.100.100.2 ebgp-multihop 255
+ neighbor 172.22.1.3 remote-as 65550
+ !
+ address-family ipv4 unicast
+  network 172.22.1.0/24
+  neighbor 100.100.100.2 route-map rmap in
+  neighbor 172.22.1.3 next-hop-self
+ exit-address-family
+exit
+!
+ip prefix-list allow_all_pref seq 10 permit any
+!
+route-map rmap permit 10
+ match ip address prefix-list allow_all_pref
+ set local-preference 200
+exit
+!
+END
+systemctl restart frr
 
 
 ;; 
@@ -149,7 +179,30 @@ ipsec reload; ipsec restart
 iptables -A FORWARD -i eth1 -j ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
-
+sed -i 's/bgpd=no/bgpd=yes/g' /etc/frr/daemons
+cat >/etc/frr/frr.conf<<END
+frr version 8.1
+frr defaults traditional
+hostname in-router2
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+router bgp 65550
+ bgp router-id 2.2.2.2
+ no bgp ebgp-requires-policy
+ neighbor 100.100.100.6 remote-as 65535
+ neighbor 100.100.100.6 ebgp-multihop 255
+ neighbor 172.22.1.2 remote-as 65550
+ !
+ address-family ipv4 unicast
+  network 172.22.1.0/24
+  neighbor 172.22.1.2 next-hop-self
+ exit-address-family
+exit
+!
+END
+systemctl restart frr
 
 ;;
 $US_RTR1_PUBLIC)
@@ -218,6 +271,38 @@ ipsec reload; ipsec restart
 iptables -A FORWARD -i eth1 -j ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
+sed -i 's/bgpd=no/bgpd=yes/g' /etc/frr/daemons
+cat >/etc/frr/frr.conf<<END
+frr version 8.1
+frr defaults traditional
+hostname us-router1
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+router bgp 65550
+ bgp router-id 3.3.3.3
+ no bgp ebgp-requires-policy
+ neighbor 100.100.100.10 remote-as 65535
+ neighbor 100.100.100.10 ebgp-multihop 255
+ neighbor 172.22.2.3 remote-as 65550
+ !
+ address-family ipv4 unicast
+  network 172.22.2.0/24
+  neighbor 100.100.100.10 route-map rmap in
+  neighbor 172.22.2.3 next-hop-self
+ exit-address-family
+exit
+!
+ip prefix-list allow_all_pref seq 10 permit any
+!
+route-map rmap permit 10
+ match ip address prefix-list allow_all_pref
+ set local-preference 200
+exit
+!
+END
+systemctl restart frr
 
 ;; 
 $US_RTR2_PUBLIC)
@@ -281,7 +366,30 @@ ipsec reload; ipsec restart
 iptables -A FORWARD -i eth1 -j ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
-
+sed -i 's/bgpd=no/bgpd=yes/g' /etc/frr/daemons
+cat >/etc/frr/frr.conf<<END
+frr version 8.1
+frr defaults traditional
+hostname us-router2
+log syslog informational
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+router bgp 65550
+ bgp router-id 4.4.4.4
+ no bgp ebgp-requires-policy
+ neighbor 100.100.100.14 remote-as 65535
+ neighbor 100.100.100.14 ebgp-multihop 255
+ neighbor 172.22.2.2 remote-as 65550
+ !
+ address-family ipv4 unicast
+  network 172.22.2.0/24
+  neighbor 172.22.2.2 next-hop-self
+ exit-address-family
+exit
+!
+END
+systemctl restart frr
 
 
 ;; 
