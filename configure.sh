@@ -98,18 +98,24 @@ router bgp 65550
  !
  address-family ipv4 unicast
   network 172.22.1.0/24
-  neighbor 100.100.100.2 route-map rmap in
+  neighbor 100.100.100.2 route-map rmap_lp in
   neighbor 172.22.1.3 next-hop-self
  exit-address-family
 exit
 !
 ip prefix-list allow_all_pref seq 10 permit any
 !
-route-map rmap permit 10
+route-map rmap_lp permit 10
  match ip address prefix-list allow_all_pref
  set local-preference 200
 exit
 !
+route-map rmap_as_prepend permit 10
+ match ip address prefix-list allow_all_pref
+ set as-path prepend 65550 65550 65550 65550
+exit
+!
+end
 END
 systemctl restart frr
 ;; 
@@ -193,10 +199,24 @@ router bgp 65550
  !
  address-family ipv4 unicast
   network 172.22.1.0/24
+  neighbor 100.100.100.6 route-map rmap_as_prepend out
   neighbor 172.22.1.2 next-hop-self
  exit-address-family
 exit
 !
+ip prefix-list allow_all_pref seq 10 permit any
+!
+route-map rmap_lp permit 10
+ match ip address prefix-list allow_all_pref
+ set local-preference 200
+exit
+!
+route-map rmap_as_prepend permit 10
+ match ip address prefix-list allow_all_pref
+ set as-path prepend 65550 65550 65550 65550
+exit
+!
+end
 END
 systemctl restart frr
 ;;
@@ -283,18 +303,24 @@ router bgp 65550
  !
  address-family ipv4 unicast
   network 172.22.2.0/24
-  neighbor 100.100.100.10 route-map rmap in
+  neighbor 100.100.100.10 route-map rmap_lp in
   neighbor 172.22.2.3 next-hop-self
  exit-address-family
 exit
 !
 ip prefix-list allow_all_pref seq 10 permit any
 !
-route-map rmap permit 10
+route-map rmap_lp permit 10
  match ip address prefix-list allow_all_pref
  set local-preference 200
 exit
 !
+route-map rmap_as_prepend permit 10
+ match ip address prefix-list allow_all_pref
+ set as-path prepend 65550 65550 65550 65550
+exit
+!
+end
 END
 systemctl restart frr
 ;;
@@ -378,10 +404,24 @@ router bgp 65550
  !
  address-family ipv4 unicast
   network 172.22.2.0/24
+  neighbor 100.100.100.14 route-map rmap_as_prepend out
   neighbor 172.22.2.2 next-hop-self
  exit-address-family
 exit
 !
+ip prefix-list allow_all_pref seq 10 permit any
+!
+route-map rmap_lp permit 10
+ match ip address prefix-list allow_all_pref
+ set local-preference 200
+exit
+!
+route-map rmap_as_prepend permit 10
+ match ip address prefix-list allow_all_pref
+ set as-path prepend 65550 65550 65550 65550
+exit
+!
+end
 END
 systemctl restart frr
 ;; 
