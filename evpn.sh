@@ -1,17 +1,17 @@
 #!/bin/bash
 
-declare IN_GATEWAY=172.232.72.68
-declare IN_APP_VM1=172.232.70.164
-declare IN_APP_VM2=172.232.70.36
-declare US_GATEWAY=139.144.20.206
-declare US_APP_VM1=139.144.20.237
-declare US_APP_VM2=170.187.159.100
-declare EU_GATEWAY=176.58.110.245
-declare EU_APP_VM1=178.79.190.44
-declare EU_APP_VM2=178.79.190.101
-declare AP_GATEWAY=139.162.53.167
-declare AP_APP_VM1=139.162.32.182
-declare AP_APP_VM2=139.162.32.215
+declare IN_GATEWAY=
+declare IN_APP_VM1=
+declare IN_APP_VM2=
+declare US_GATEWAY=
+declare US_APP_VM1=
+declare US_APP_VM2=
+declare EU_GATEWAY=
+declare EU_APP_VM1=
+declare EU_APP_VM2=
+declare AP_GATEWAY=
+declare AP_APP_VM1=
+declare AP_APP_VM2=
 
 ETH0_IP=$(ip -br add show dev eth0 | awk {'print $3'} | sed 's/\/.*//g')
 
