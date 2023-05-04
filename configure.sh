@@ -1,15 +1,15 @@
 #!/bin/bash
 
-declare IN_RTR1_PUBLIC="172.105.61.83"
-declare IN_RTR2_PUBLIC="172.105.61.130"
-declare IN_APP1_PUBLIC="172.105.61.167"
-declare IN_APP2_PUBLIC="172.105.61.173"
-declare IN_APP3_PUBLIC="172.105.61.137"
-declare US_RTR1_PUBLIC="50.116.42.108"
-declare US_RTR2_PUBLIC="45.79.208.27"
-declare US_APP1_PUBLIC="45.79.208.132"
-declare US_APP2_PUBLIC="45.79.208.243"
-declare US_APP3_PUBLIC="45.56.114.75"
+declare IN_RTR1_PUBLIC=""
+declare IN_RTR2_PUBLIC=""
+declare IN_APP1_PUBLIC=""
+declare IN_APP2_PUBLIC=""
+declare IN_APP3_PUBLIC=""
+declare US_RTR1_PUBLIC=""
+declare US_RTR2_PUBLIC=""
+declare US_APP1_PUBLIC=""
+declare US_APP2_PUBLIC=""
+declare US_APP3_PUBLIC=""
 
 declare ONPREM_FW1="72.247.47.16" # fw-clientlab4600.145bw.neteng.akamai.com IND .1 US .9
 declare ONPREM_FW2="72.247.47.21" # fw-clientlab1500.145bw.neteng.akamai.com IND .5 US .13
