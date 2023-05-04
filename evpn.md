@@ -77,3 +77,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 cat ./linux/zshrc >>~/.zshrc; source ~/.zshrc
 
 fping -ag -c1 172.22.1.0/26  |& grep min
+
+
+
+
