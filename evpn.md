@@ -68,10 +68,12 @@ done
 step1: (update evpn.sh)
 lll | ip_filter
 
-lll | ip_filter| sed 's/.*/lil &/g' | ntab
+lll | ip_filter| sed 's/.*/lil &/g' | ntab; exit
 
 git clone git@github.com:pmediset/linux.git 
 bash ./linux/evpn.sh
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 cat ./linux/zshrc >>~/.zshrc; source ~/.zshrc
+
+fping -ag -c1 172.22.1.0/26  |& grep min
