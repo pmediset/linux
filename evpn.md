@@ -64,3 +64,14 @@ linode-cli linodes create \
   --interfaces.purpose "vlan" --interfaces.label "LINODE-TO-AKAM" --interfaces.ipam_address "172.22.1.${i#* }/24"
 done
 
+
+step1: (update evpn.sh)
+lll | ip_filter
+
+lll | ip_filter| sed 's/.*/lil &/g' | ntab
+
+git clone git@github.com:pmediset/linux.git 
+bash ./linux/evpn.sh
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+cat ./linux/zshrc >>~/.zshrc; source ~/.zshrc
