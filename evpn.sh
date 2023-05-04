@@ -57,6 +57,9 @@ ip link set  vxlan1 master br1
 ip link set  eth1 master br1
 ip link set vxlan1 up
 ip link set br1 up
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br1
 systemctl restart frr
 
 ;;
