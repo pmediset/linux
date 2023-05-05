@@ -1,17 +1,17 @@
 #!/bin/bash
 
-declare IN_GATEWAY=
-declare IN_APP_VM1=
-declare IN_APP_VM2=
-declare US_GATEWAY=
-declare US_APP_VM1=
-declare US_APP_VM2=
-declare EU_GATEWAY=
-declare EU_APP_VM1=
-declare EU_APP_VM2=
-declare AP_GATEWAY=
-declare AP_APP_VM1=
-declare AP_APP_VM2=
+declare IN_GATEWAY=192.46.208.166
+declare IN_APP_VM1=192.46.208.31
+declare IN_APP_VM2=192.46.208.43
+declare US_GATEWAY=170.187.139.144
+declare US_APP_VM1=170.187.139.232
+declare US_APP_VM2=170.187.139.249
+declare EU_GATEWAY=139.162.237.104
+declare EU_APP_VM1=178.79.164.201
+declare EU_APP_VM2=178.79.164.252
+declare AP_GATEWAY=143.42.74.59
+declare AP_APP_VM1=143.42.74.71
+declare AP_APP_VM2=143.42.74.75
 
 ETH0_IP=$(ip -br add show dev eth0 | awk {'print $3'} | sed 's/\/.*//g')
 
@@ -104,6 +104,9 @@ ip link set  vxlan1 master br1
 ip link set  eth1 master br1
 ip link set vxlan1 up
 ip link set br1 up
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br1
 systemctl restart frr
 ;;
 $EU_GATEWAY)
@@ -147,6 +150,9 @@ ip link set  vxlan1 master br1
 ip link set  eth1 master br1
 ip link set vxlan1 up
 ip link set br1 up
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br1
 systemctl restart frr
 
 ;;
@@ -192,6 +198,10 @@ ip link set  eth1 master br1
 ip link set vxlan1 up
 ip link set br1 up
 systemctl restart frr
+
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br1
 ;;
 
 $IN_APP_VM1)
