@@ -1,3 +1,5 @@
+
+
 for i in "in-gateway 1" "in-app-vm1 11" "in-app-vm2 12" ; do 
 linode-cli linodes create \
   --no-defaults \
@@ -71,7 +73,7 @@ lll | ip_filter
 lll | ip_filter| sed 's/.*/lil &/g' | ntab; exit
 
 git clone git@github.com:pmediset/linux.git 
-bash ./linux/evpn.sh
+bash ./linux/debian.sh
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 cat ./linux/zshrc >>~/.zshrc; source ~/.zshrc

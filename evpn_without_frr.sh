@@ -22,15 +22,15 @@ apt-get update
 apt-get install iftop nload tree fping zsh telnet most neofetch traceroute mtr nmap tcpdump -y
 
 
-# ip link add vxlan1222 type vxlan id 1222 local $IN_GATEWAY remote $US_GATEWAY dstport 4789 dev eth0
-# ip link set vxlan1222 up
-# ip link add br0 type bridge
-# ip link set vxlan1222 master br0
-# ip link set eth1 master br0
-# ip=$(ip -br addr show dev eth1 | awk {'print $3'})
-# ip addr del $ip dev eth1
-# ip addr add $ip dev br0
-# ip link set br0 up
+ip link add vxlan1222 type vxlan id 1222 local $IN_GATEWAY remote $US_GATEWAY dstport 4789 dev eth0
+ip link set vxlan1222 up
+ip link add br0 type bridge
+ip link set vxlan1222 master br0
+ip link set eth1 master br0
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br0
+ip link set br0 up
 
 
 ;;
@@ -40,21 +40,21 @@ apt-get update
 apt-get install iftop nload tree fping zsh telnet most neofetch traceroute mtr nmap tcpdump -y
 
 
-# ip link add vxlan1222 type vxlan id 1222 local $US_GATEWAY remote $IN_GATEWAY dstport 4789 dev eth0
-# ip link add vxlan1223 type vxlan id 1223 local $US_GATEWAY remote $EU_GATEWAY dstport 4789 dev eth0
-# ip link add vxlan1224 type vxlan id 1224 local $US_GATEWAY remote $AP_GATEWAY dstport 4789 dev eth0
-# ip link set vxlan1222 up
-# ip link set vxlan1223 up
-# ip link set vxlan1224 up
-# ip link add br0 type bridge
-# ip link set vxlan1222 master br0
-# ip link set vxlan1223 master br0
-# ip link set vxlan1224 master br0
-# ip link set eth1 master br0
-# ip=$(ip -br addr show dev eth1 | awk {'print $3'})
-# ip addr del $ip dev eth1
-# ip addr add $ip dev br0
-# ip link set br0 up
+ip link add vxlan1222 type vxlan id 1222 local $US_GATEWAY remote $IN_GATEWAY dstport 4789 dev eth0
+ip link add vxlan1223 type vxlan id 1223 local $US_GATEWAY remote $EU_GATEWAY dstport 4789 dev eth0
+ip link add vxlan1224 type vxlan id 1224 local $US_GATEWAY remote $AP_GATEWAY dstport 4789 dev eth0
+ip link set vxlan1222 up
+ip link set vxlan1223 up
+ip link set vxlan1224 up
+ip link add br0 type bridge
+ip link set vxlan1222 master br0
+ip link set vxlan1223 master br0
+ip link set vxlan1224 master br0
+ip link set eth1 master br0
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br0
+ip link set br0 up
 
 ;;
 $EU_GATEWAY)
@@ -63,15 +63,15 @@ apt-get update
 apt-get install iftop nload tree fping zsh telnet most neofetch traceroute mtr nmap tcpdump -y
 
 
-# ip link add vxlan1222 type vxlan id 1222 local $EU_GATEWAY remote $US_GATEWAY dstport 4789 dev eth0
-# ip link set vxlan1222 up
-# ip link add br0 type bridge
-# ip link set vxlan1222 master br0
-# ip link set eth1 master br0
-# ip=$(ip -br addr show dev eth1 | awk {'print $3'})
-# ip addr del $ip dev eth1
-# ip addr add $ip dev br0
-# ip link set br0 up
+ip link add vxlan1223 type vxlan id 1223 local $EU_GATEWAY remote $US_GATEWAY dstport 4789 dev eth0
+ip link set vxlan1223 up
+ip link add br0 type bridge
+ip link set vxlan1223 master br0
+ip link set eth1 master br0
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br0
+ip link set br0 up
 
 ;;
 $AP_GATEWAY)
@@ -80,15 +80,15 @@ apt-get update
 apt-get install iftop nload tree fping zsh telnet most neofetch traceroute mtr nmap tcpdump -y
 
 
-# ip link add vxlan1222 type vxlan id 1222 local $AP_GATEWAY remote $US_GATEWAY dstport 4789 dev eth0
-# ip link set vxlan1222 up
-# ip link add br0 type bridge
-# ip link set vxlan1222 master br0
-# ip link set eth1 master br0
-# ip=$(ip -br addr show dev eth1 | awk {'print $3'})
-# ip addr del $ip dev eth1
-# ip addr add $ip dev br0
-# ip link set br0 up
+ip link add vxlan1224 type vxlan id 1224 local $AP_GATEWAY remote $US_GATEWAY dstport 4789 dev eth0
+ip link set vxlan1224 up
+ip link add br0 type bridge
+ip link set vxlan1224 master br0
+ip link set eth1 master br0
+ip=$(ip -br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br0
+ip link set br0 up
 
 
 ;;
