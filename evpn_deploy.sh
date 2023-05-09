@@ -64,6 +64,7 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $ca_central_gtw)
 hostnamectl set-hostname $( echo ca_central_gtw | sed 's/_/-/g')
@@ -108,6 +109,7 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $ap_southeast_gtw)
 hostnamectl set-hostname $( echo ap_southeast_gtw | sed 's/_/-/g')
@@ -152,6 +154,7 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $us_southeast_gtw)
 hostnamectl set-hostname $( echo us_southeast_gtw | sed 's/_/-/g')
@@ -196,6 +199,7 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $eu_west_gtw)
 hostnamectl set-hostname $( echo eu_west_gtw | sed 's/_/-/g')
@@ -240,6 +244,7 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $ap_south_gtw)
 hostnamectl set-hostname $( echo ap_south_gtw | sed 's/_/-/g')
@@ -284,6 +289,7 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $eu_central_gtw)
 hostnamectl set-hostname $( echo eu_central_gtw | sed 's/_/-/g')
@@ -328,6 +334,52 @@ END
 ip=$(ip --br addr show dev eth1 | awk {'print $3'})
 ip addr del $ip dev eth1
 ip addr add $ip dev br1
+systemctl restart frr
+;;
+$us_east_gtw)
+hostnamectl set-hostname $( echo us_east_gtw | sed 's/_/-/g')
+sed -i 's/bgpd=no/bgpd=yes/g' /etc/frr/daemons
+ip link add br1 type bridge
+ip link add vni1 type vxlan local $eth0_ip dstport 4789 id 1 nolearning
+ip link set vni1 master br1 addrgenmode none
+ip link set vni1 type bridge_slave neigh_suppress on learning off
+ip link set vni1 up
+ip link set br1 up
+cat >/etc/frr/frr.conf<<END
+frr version 8.4.2
+frr defaults traditional
+hostname cloud-to-onprem1
+log syslog informational
+vni 100
+no ipv6 forwarding
+service integrated-vtysh-config
+!
+router bgp 65550
+ bgp router-id $eth0_ip
+ no bgp ebgp-requires-policy
+ no bgp hard-administrative-reset
+ no bgp graceful-restart notification
+ neighbor ibgp_mesh peer-group
+ neighbor ibgp_mesh remote-as 65550
+ neighbor ibgp_mesh update-source $eth0_ip
+ neighbor ibgp_mesh capability extended-nexthop
+END
+for i in cloud_to_onprem1 ap_west_gtw ca_central_gtw ap_southeast_gtw us_southeast_gtw us_east_gtw eu_west_gtw ap_south_gtw eu_central_gtw
+do if [[ $i != $(hostname | sed 's/-/_/g') ]] ; then ip route add ${!i} via $default_gw; 
+printf " neighbor ${!i} peer-group ibgp_mesh\n bgp listen range ${!i}/32 peer-group ibgp_mesh\n" >> /etc/frr/frr.conf
+fi ; done
+cat >>/etc/frr/frr.conf<<END
+ !
+ address-family l2vpn evpn
+  neighbor ibgp_mesh activate
+  advertise-all-vni
+ exit-address-family
+exit
+END
+ip=$(ip --br addr show dev eth1 | awk {'print $3'})
+ip addr del $ip dev eth1
+ip addr add $ip dev br1
+systemctl restart frr
 ;;
 $ap_west_app)
 hostnamectl set-hostname $( echo ap_west_app | sed 's/_/-/g')
