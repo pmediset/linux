@@ -402,5 +402,7 @@ hostnamectl set-hostname $( echo ap_south_app | sed 's/_/-/g')
 $eu_central_app)
 hostnamectl set-hostname $( echo eu_central_app | sed 's/_/-/g')
 ;;
-
+$us_east_app)
+hostnamectl set-hostname $( echo us_east_app | sed 's/_/-/g')
+;;
 esac 

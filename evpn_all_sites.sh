@@ -37,6 +37,4 @@ lll | awk {'print $4, $(NF-1)'} | sed 's/ /=/g'
 
 
 
-
-
-
+fping -g 172.22.1.0/26 -c5 |& grep min | sort -k 8

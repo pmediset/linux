@@ -17,5 +17,5 @@ cheat () {
 export PAGER=most
 
 latency_test () {
-fping -g $1 -c5 |& grep min  | awk {'print $1,$NF'} | sed 's/\// /g' | awk {'print $1,$2'} | sort -k2n | awk {'print $1, "latency:" $2'}
+fping -g $1 -c5 |& grep min  | awk {'print $1,$NF'} | sed 's/\// /g' | awk {'print $1,$3'} | sort -k2n | awk {'print $1, "latency:" $2'}
 }
